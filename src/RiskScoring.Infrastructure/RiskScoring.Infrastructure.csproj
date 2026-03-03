@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Contoso.RiskScoring.Infrastructure</RootNamespace>
+    <AssemblyName>Contoso.RiskScoring.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RiskScoring.Domain\RiskScoring.Domain.csproj" />
+    <ProjectReference Include="..\RiskScoring.Application\RiskScoring.Application.csproj" />
+  </ItemGroup>
+</Project>

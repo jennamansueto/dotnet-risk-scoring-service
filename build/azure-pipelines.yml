@@ -1,0 +1,39 @@
+# Placeholder CI pipeline for Contoso.RiskScoring.Legacy
+# Targets .NET Framework 4.7.2 — requires Windows agent with VS Build Tools.
+trigger:
+  branches:
+    include:
+      - main
+      - release/*
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: 'Contoso.RiskScoring.Legacy.sln'
+  buildConfiguration: 'Release'
+
+steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet'
+
+  - task: NuGetCommand@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      restoreSolution: '$(solution)'
+
+  - task: VSBuild@1
+    displayName: 'Build Solution'
+    inputs:
+      solution: '$(solution)'
+      configuration: '$(buildConfiguration)'
+
+  - task: VSTest@2
+    displayName: 'Run Unit Tests'
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: |
+        **\*Tests*.dll
+        !**\obj\**
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      configuration: '$(buildConfiguration)'
