@@ -4,14 +4,13 @@ using Contoso.RiskScoring.Domain.Entities;
 using Contoso.RiskScoring.Domain.Enums;
 using Contoso.RiskScoring.Domain.Interfaces;
 using Contoso.RiskScoring.Domain.Rules;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Contoso.RiskScoring.UnitTests.Domain
 {
-    [TestClass]
     public class RiskScoringEngineTests
     {
-        [TestMethod]
+        [Fact]
         public void Evaluate_LowRiskTransaction_ReturnsApprove()
         {
             var engine = CreateEngine();
@@ -19,11 +18,11 @@ namespace Contoso.RiskScoring.UnitTests.Domain
 
             var result = engine.Evaluate(context);
 
-            Assert.AreEqual(RiskDecision.Approve, result.Decision);
-            Assert.IsTrue(result.Score < 40);
+            Assert.Equal(RiskDecision.Approve, result.Decision);
+            Assert.True(result.Score < 40);
         }
 
-        [TestMethod]
+        [Fact]
         public void Evaluate_HighAmountFromHighRiskCountry_ReturnsDecline()
         {
             var engine = CreateEngine();
@@ -31,12 +30,12 @@ namespace Contoso.RiskScoring.UnitTests.Domain
 
             var result = engine.Evaluate(context);
 
-            Assert.AreEqual(RiskDecision.Decline, result.Decision);
-            Assert.IsTrue(result.Score >= 70);
-            Assert.IsTrue(result.Reasons.Count >= 3);
+            Assert.Equal(RiskDecision.Decline, result.Decision);
+            Assert.True(result.Score >= 70);
+            Assert.True(result.Reasons.Count >= 3);
         }
 
-        [TestMethod]
+        [Fact]
         public void Evaluate_MediumRisk_ReturnsReview()
         {
             var engine = CreateEngine();
@@ -44,11 +43,11 @@ namespace Contoso.RiskScoring.UnitTests.Domain
 
             var result = engine.Evaluate(context);
 
-            Assert.AreEqual(RiskDecision.Review, result.Decision);
-            Assert.IsTrue(result.Score >= 40 && result.Score < 70);
+            Assert.Equal(RiskDecision.Review, result.Decision);
+            Assert.True(result.Score >= 40 && result.Score < 70);
         }
 
-        [TestMethod]
+        [Fact]
         public void Evaluate_ScoreClampedToMax100()
         {
             var engine = CreateEngine();
@@ -63,10 +62,10 @@ namespace Contoso.RiskScoring.UnitTests.Domain
 
             var result = engine.Evaluate(context);
 
-            Assert.IsTrue(result.Score <= 100);
+            Assert.True(result.Score <= 100);
         }
 
-        [TestMethod]
+        [Fact]
         public void Evaluate_PreservesTransactionId()
         {
             var engine = CreateEngine();
@@ -76,7 +75,7 @@ namespace Contoso.RiskScoring.UnitTests.Domain
 
             var result = engine.Evaluate(context);
 
-            Assert.AreEqual(txId, result.TransactionId);
+            Assert.Equal(txId, result.TransactionId);
         }
 
         private static RiskScoringEngine CreateEngine()
