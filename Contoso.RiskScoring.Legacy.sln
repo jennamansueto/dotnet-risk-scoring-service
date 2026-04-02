@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiskScoring.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiskScoring.UnitTests", "tests\RiskScoring.UnitTests\RiskScoring.UnitTests.csproj", "{B1000005-0000-0000-0000-000000000005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiskScoring.IntegrationTests", "tests\RiskScoring.IntegrationTests\RiskScoring.IntegrationTests.csproj", "{B1000006-0000-0000-0000-000000000006}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{B1000005-0000-0000-0000-000000000005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1000005-0000-0000-0000-000000000005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1000005-0000-0000-0000-000000000005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000006-0000-0000-0000-000000000006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000006-0000-0000-0000-000000000006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000006-0000-0000-0000-000000000006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000006-0000-0000-0000-000000000006}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B1000001-0000-0000-0000-000000000001} = {A1B2C3D4-0001-0001-0001-000000000001}
@@ -50,5 +56,6 @@ Global
 		{B1000003-0000-0000-0000-000000000003} = {A1B2C3D4-0001-0001-0001-000000000001}
 		{B1000004-0000-0000-0000-000000000004} = {A1B2C3D4-0001-0001-0001-000000000001}
 		{B1000005-0000-0000-0000-000000000005} = {A1B2C3D4-0002-0002-0002-000000000002}
+		{B1000006-0000-0000-0000-000000000006} = {A1B2C3D4-0002-0002-0002-000000000002}
 	EndGlobalSection
 EndGlobal

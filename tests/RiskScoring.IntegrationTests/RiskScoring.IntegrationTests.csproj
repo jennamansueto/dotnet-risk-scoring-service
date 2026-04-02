@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Contoso.RiskScoring.UnitTests</RootNamespace>
-    <AssemblyName>Contoso.RiskScoring.UnitTests</AssemblyName>
+    <RootNamespace>Contoso.RiskScoring.IntegrationTests</RootNamespace>
+    <AssemblyName>Contoso.RiskScoring.IntegrationTests</AssemblyName>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -10,13 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.11" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" RuntimeAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\RiskScoring.Domain\RiskScoring.Domain.csproj" />
-    <ProjectReference Include="..\..\src\RiskScoring.Application\RiskScoring.Application.csproj" />
+    <ProjectReference Include="..\..\src\RiskScoring.Api\RiskScoring.Api.csproj" />
   </ItemGroup>
 </Project>
