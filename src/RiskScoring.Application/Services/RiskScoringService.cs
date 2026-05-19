@@ -1,5 +1,6 @@
 using System;
-using System.Diagnostics;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Contoso.RiskScoring.Application.DTOs;
 using Contoso.RiskScoring.Application.Interfaces;
 using Contoso.RiskScoring.Domain.Entities;
@@ -8,25 +9,29 @@ using Contoso.RiskScoring.Domain.Rules;
 
 namespace Contoso.RiskScoring.Application.Services
 {
-    // TODO: Migration — replace Trace.WriteLine with ILogger<T> in .NET 8.
     public class RiskScoringService : IRiskScoringService
     {
         private readonly RiskScoringEngine _engine;
         private readonly ICustomerProfileRepository _customerRepo;
+        private readonly ILogger<RiskScoringService> _logger;
 
-        public RiskScoringService(RiskScoringEngine engine, ICustomerProfileRepository customerRepo)
+        public RiskScoringService(
+            RiskScoringEngine engine,
+            ICustomerProfileRepository customerRepo,
+            ILogger<RiskScoringService> logger)
         {
             _engine = engine ?? throw new ArgumentNullException(nameof(engine));
             _customerRepo = customerRepo ?? throw new ArgumentNullException(nameof(customerRepo));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public RiskScoreResponse Evaluate(TransactionRiskRequest request)
+        public async Task<RiskScoreResponse> EvaluateAsync(TransactionRiskRequest request)
         {
-            Trace.TraceInformation(
-                "Evaluating risk for transaction {0}, customer {1}, amount {2} {3}",
+            _logger.LogInformation(
+                "Evaluating risk for transaction {TransactionId}, customer {CustomerId}, amount {Amount} {Currency}",
                 request.TransactionId, request.CustomerId, request.Amount, request.Currency);
 
-            var profile = _customerRepo.GetByCustomerId(request.CustomerId);
+            var profile = await _customerRepo.GetByCustomerIdAsync(request.CustomerId).ConfigureAwait(false);
 
             var context = new TransactionContext
             {
@@ -42,7 +47,7 @@ namespace Contoso.RiskScoring.Application.Services
 
             var result = _engine.Evaluate(context);
 
-            Trace.TraceInformation("Transaction {0} scored {1} -> {2}",
+            _logger.LogInformation("Transaction {TransactionId} scored {Score} -> {Decision}",
                 result.TransactionId, result.Score, result.Decision);
 
             return new RiskScoreResponse

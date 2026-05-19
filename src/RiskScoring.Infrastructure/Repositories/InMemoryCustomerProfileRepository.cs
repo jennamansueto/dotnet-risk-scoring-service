@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Contoso.RiskScoring.Domain.Entities;
 using Contoso.RiskScoring.Domain.Enums;
 using Contoso.RiskScoring.Domain.Interfaces;
 
 namespace Contoso.RiskScoring.Infrastructure.Repositories
 {
-    // TODO: Migration — replace with EF Core or Dapper repository backed by a real database.
-    // This in-memory stub exists because the original service read from a SQL Server stored proc
-    // that was decommissioned. The fake data keeps the API functional for testing.
     public class InMemoryCustomerProfileRepository : ICustomerProfileRepository
     {
         private static readonly Dictionary<string, CustomerProfile> Profiles =
@@ -43,11 +41,11 @@ namespace Contoso.RiskScoring.Infrastructure.Repositories
                 }
             };
 
-        public CustomerProfile GetByCustomerId(string customerId)
+        public Task<CustomerProfile> GetByCustomerIdAsync(string customerId)
         {
             CustomerProfile profile;
             Profiles.TryGetValue(customerId, out profile);
-            return profile;
+            return Task.FromResult(profile);
         }
     }
 }
